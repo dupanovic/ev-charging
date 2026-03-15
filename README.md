@@ -30,12 +30,15 @@ docker compose up --build
 | Frontend | http://localhost:5173 | React dashboard |
 | API | http://localhost:3000 | REST API with database |
 | Adminer | http://localhost:8080 | Database browser |
-| PostgreSQL | localhost:5432 | Database |
+| PostgreSQL | localhost:5432 | Database for storing simulation runs and configs |
 | Simulation Service | http://localhost:3001 | Simulation engine (unfortunately not in Rust) |
 
-Adminer login: System=PostgreSQL, Server=`postgres`, User=`postgres`, Password=`postgres`, Database=`ev_charging`.
-
-To rebuild images after code changes: `docker compose up --build`
+For your convencience the database can be accessed through Adminer, with these credentials: 
+- System=PostgreSQL
+- Server=`postgres`
+- User=`postgres`
+- Password=`postgres`
+- Database=`ev_charging`
 
 ### Without Docker
 
