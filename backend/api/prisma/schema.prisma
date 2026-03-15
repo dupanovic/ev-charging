@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model SimulationConfig {
+  id                      String             @id @default(uuid())
+  name                    String             @default("")
+  numChargepoints         Int                @default(20)
+  chargingPowerKw         Float              @default(11)
+  consumptionKwhPer100km  Float              @default(18)
+  arrivalMultiplier       Float              @default(1.0)
+  createdAt               DateTime           @default(now())
+  updatedAt               DateTime           @updatedAt
+  results                 SimulationResult[]
+
+  @@map("simulation_configs")
+}
+
+model SimulationResult {
+  id                    String           @id @default(uuid())
+  configId              String
+  config                SimulationConfig @relation(fields: [configId], references: [id], onDelete: Cascade)
+  totalEnergyKwh        Float
+  theoreticalMaxPowerKw Float
+  actualMaxPowerKw      Float
+  concurrencyFactor     Float
+  totalChargingEvents   Int
+  chargingValuesPerDay  Json
+  createdAt             DateTime         @default(now())
+
+  @@map("simulation_results")
+}
